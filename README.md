@@ -1,6 +1,5 @@
 Toolbox
 ===========
-[![Build Status](https://travis-ci.org/frankjuniorr/Toolbox.svg?branch=master)](https://travis-ci.org/frankjuniorr/Toolbox)
 
 ## Descrição
 Minha própria caixa de ferramentas, com alguns códigos utilitários pra facilitar algumas rotinas pessoais.

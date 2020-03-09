@@ -1,0 +1,11 @@
+# Files ignored from Vim
+*~
+*.swp
+
+# Files ignored from "check_music_file_format" script
+check_music_file_format/*.txt
+
+# Files ignored from "feriados" script
+feriados/__pycache__
+feriados/token.pickle
+feriados/credentials.json

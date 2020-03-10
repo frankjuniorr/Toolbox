@@ -86,7 +86,7 @@ def main():
     print(" ========= Adicionando feriados =========")
 
     # ================ Init ================
-    # service = google_controller.google_authenticate()
+    service = google_controller.google_authenticate()
     ano = datetime.datetime.now().year
 
     # se eu rodar esse script no mês de dezembro, ele incrementa o 'ano'

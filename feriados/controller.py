@@ -8,11 +8,8 @@ import google_controller
 # Jean Baptiste Joseph Delambre (1749-1822)
 # link: (http://www.ghiorzi.org/portug2.htm)
 # ============================================
-def calculate_pascoa():
+def calculate_pascoa(ano):
     pascoa_dia = pascoa_mes = a = b = c = d = e = f = g = h = i = k = l = m = p = q = r = s = None
-
-    now = datetime.datetime.now()
-    ano = now.year
 
     a = math.trunc(ano % 19)
     b = math.trunc(ano / 100)
@@ -91,38 +88,18 @@ def add_carnaval(service, pascoa_date):
   google_controller.setGoogleCalendar(event, service)
 
 # ============================================
-# Função que adiciona a data do carnaval do Sucata
-# ============================================
-def add_carnaval_do_sucata(service, pascoa_date):
-  carnaval_inicio = pascoa_date - datetime.timedelta(days=51)
-
-  carnaval_de_byron = carnaval_inicio - datetime.timedelta(days=6)
-  carnaval_de_byron_string = carnaval_de_byron.strftime("%Y-%m-%d")
-
-  event = {
-    "summary": "Carnaval do Sucata",
-    "description": "Carnaval de caruaru",
-    "startDate": carnaval_de_byron_string,
-    "endDate": carnaval_de_byron_string,
-  }
-
-  google_controller.setGoogleCalendar(event, service)
-
-# ============================================
 # Função que adiciona a data da Semana Santa
 # ============================================
 def add_semana_santa(service, pascoa_date):
-  semana_santa_inicio = pascoa_date - datetime.timedelta(days=7)
-  semana_santa_fim = pascoa_date
-
-  semana_santa_inicio_string = semana_santa_inicio.strftime("%Y-%m-%d")
-  semana_santa_fim_string = semana_santa_fim.strftime("%Y-%m-%d")
+  # a 'pascoa_date' sempre cai no domingo,
+  # logo, o feriado é sempre na sexta antes, por isso é -2 dias
+  semana_santa = (pascoa_date - datetime.timedelta(days=2)).strftime("%Y-%m-%d")
 
   event = {
     "summary": "Semana Santa",
     "description": "Semana Santa",
-    "startDate": semana_santa_inicio_string,
-    "endDate": semana_santa_fim_string,
+    "startDate": semana_santa,
+    "endDate": semana_santa,
   }
 
   google_controller.setGoogleCalendar(event, service)
@@ -138,7 +115,7 @@ def add_feriado(service, ano, mes, dia, summary):
 
   if feriado_datas["start_date"] != None:
     event = {
-        "summary": f"[FERIADO] {summary}",
+        "summary": summary,
         "description": summary,
         "startDate": feriado_datas["start_date"],
         "endDate": feriado_datas["end_date"],

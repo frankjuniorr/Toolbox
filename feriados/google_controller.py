@@ -50,7 +50,7 @@ def google_authenticate():
 # ============================================
 def setGoogleCalendar(objeto, service):
   event = {
-      'summary': objeto["summary"],
+      'summary': f"[FERIADO] {objeto['summary']}",
       'description': objeto["description"],
       'start': {'date': objeto["startDate"]},
       'end': {'date': objeto["endDate"]}

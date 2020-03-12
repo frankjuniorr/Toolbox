@@ -37,6 +37,36 @@ function print_info(){
 echo -e "$1$2${text_reset}"
 }
 
+# Função que imprime as versões do DesktopEnvironment instalado
+# pra dar suporte a outras DE, adicionar nessa função.
+function desktop_environment_version(){
+	if type gnome-shell > /dev/null 2>&1; then
+			gnome_shell_version="\t$(gnome-shell --version)"
+			print_info "\t${bold_yellow}Gnome Shell:" "${bold_cyan}${gnome_shell_version}"
+	fi
+}
+
+# Função usada pra imprimir versões das ferramentas de desenvolvimento
+function development_versions(){
+	# versão do Node
+	if type node > /dev/null 2>&1; then
+		node_version="\t\t$(node --version)"
+		print_info "\t${bold_yellow}Node: " "${bold_cyan}${node_version}"
+	fi
+
+	# versão do Npm
+	if type npm > /dev/null 2>&1; then
+		npm_version="\t\t$(npm --version)"
+		print_info "\t${bold_yellow}Npm: " "${bold_cyan}${npm_version}"
+	fi
+
+	# versão do Python
+	if type python3 > /dev/null 2>&1; then
+		python3_version="\t$(python3 --version)"
+		print_info "\t${bold_yellow}Python 3: " "${bold_cyan}${python3_version}"
+	fi
+}
+
 # funcao para verificar o SO corrente e chamar seus respectivos comandos
 function verifica_so(){
 local current_so="$(uname -s)"
@@ -49,6 +79,7 @@ case "$current_so" in
 			hostname_comando="\t"$(hostname)""
 			SO_comando="\t\t"$(uname -s)""
 			distribuicao_comando="\t"$(lsb_release -sd)" - ($(lsb_release -sc))"
+			kernel="\t\t$(uname -r)"
 			memoria_valor=$(free -m | grep "Mem" | awk '{print $2}')
 			memoria_comando="\t$(echo "scale=2; $memoria_valor/1000" | bc) GB"
 			processador_comando="\t$(grep 'model name' /proc/cpuinfo | uniq | cut -d ':' -f2 | sed s/\ //) x$(grep 'model name' /proc/cpuinfo | wc -l)"
@@ -92,6 +123,7 @@ function get_info_mac(){
 # Main
 # ----------------------------------------------------------------------------
 
+clear
 verifica_so
 
 print_info "${bold_purple}Computador:"
@@ -99,7 +131,9 @@ print_info "\t${bold_yellow}usuario:" "${bold_cyan}${usuario_comando}"
 print_info "\t${bold_yellow}hostname:" "${bold_cyan}${hostname_comando}"
 if [ $(uname -s) = 'Linux' ]; then
 	print_info "\t${bold_yellow}SO:" "${bold_cyan}${SO_comando}"
+	print_info "\t${bold_yellow}Kernel:" "${bold_cyan}${kernel}"
 	print_info "\t${bold_yellow}distribuicao:" "${bold_cyan}${distribuicao_comando}"
+	desktop_environment_version
 elif [ $(uname -s) = 'Darwin' ]; then
 	print_info "computador:" "${computador_comando}"
 	print_info "versao:" "${versao_comando}"
@@ -116,4 +150,6 @@ for interface in $network_interfaces;do
 	print_info "\t${bold_yellow}${interface}: ${bold_cyan}\t$local_ip"
 done
 
+print_info "${bold_purple}Versions:"
+development_versions
 

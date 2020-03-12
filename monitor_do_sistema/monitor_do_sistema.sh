@@ -127,12 +127,12 @@ clear
 verifica_so
 
 print_info "${bold_purple}Computador:"
-print_info "\t${bold_yellow}usuario:" "${bold_cyan}${usuario_comando}"
-print_info "\t${bold_yellow}hostname:" "${bold_cyan}${hostname_comando}"
+print_info "\t${bold_yellow}Usuario:" "${bold_cyan}${usuario_comando}"
+print_info "\t${bold_yellow}Hostname:" "${bold_cyan}${hostname_comando}"
 if [ $(uname -s) = 'Linux' ]; then
 	print_info "\t${bold_yellow}SO:" "${bold_cyan}${SO_comando}"
 	print_info "\t${bold_yellow}Kernel:" "${bold_cyan}${kernel}"
-	print_info "\t${bold_yellow}distribuicao:" "${bold_cyan}${distribuicao_comando}"
+	print_info "\t${bold_yellow}Distribuicao:" "${bold_cyan}${distribuicao_comando}"
 	desktop_environment_version
 elif [ $(uname -s) = 'Darwin' ]; then
 	print_info "computador:" "${computador_comando}"
@@ -140,14 +140,15 @@ elif [ $(uname -s) = 'Darwin' ]; then
 fi
 
 print_info "${bold_purple}Hardware:"
-print_info "\t${bold_yellow}memoria:" "${bold_cyan}${memoria_comando}"
-print_info "\t${bold_yellow}processador:" "${bold_cyan}${processador_comando}"
-print_info "\t${bold_yellow}arquitetura:" "${bold_cyan}${arquitetura_comando}"
+print_info "\t${bold_yellow}Memoria:" "${bold_cyan}${memoria_comando}"
+print_info "\t${bold_yellow}Processador:" "${bold_cyan}${processador_comando}"
+print_info "\t${bold_yellow}Arquitetura:" "${bold_cyan}${arquitetura_comando}"
 
 print_info "${bold_purple}Rede:"
 for interface in $network_interfaces;do
-	local_ip=$(ifconfig $interface | grep "inet addr" | cut -d ":" -f2 | cut -d " " -f1)
-	print_info "\t${bold_yellow}${interface}: ${bold_cyan}\t$local_ip"
+	interface=$(echo $interface | sed 's/://g')
+	local_ip=$(ifconfig $interface | grep "inet" | grep -v "inet6" | awk '{print $2}')
+	print_info "\t${bold_yellow}${interface}: ${bold_cyan}\t${local_ip}"
 done
 
 print_info "${bold_purple}Versions:"

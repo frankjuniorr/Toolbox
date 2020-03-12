@@ -62,8 +62,8 @@ function development_versions(){
 
 	# versão do Python
 	if type python3 > /dev/null 2>&1; then
-		python3_version="\t$(python3 --version)"
-		print_info "\t${bold_yellow}Python 3: " "${bold_cyan}${python3_version}"
+		python3_version="\t$(python3 --version | awk '{print$2}')"
+		print_info "\t${bold_yellow}Python3: " "${bold_cyan}${python3_version}"
 	fi
 }
 

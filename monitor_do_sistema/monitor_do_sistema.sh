@@ -67,6 +67,13 @@ function development_versions(){
 	fi
 }
 
+function storage(){
+	mounted_partitions=$(df -h | grep -v "/dev/loop\|tmpfs\|udev\|Filesystem")
+	print_info "\t${bold_yellow}Partições Montadas:"
+	print_info "\t${bold_cyan}Filesystem Tamanho Uso Disponível Uso% Montado-em"
+	print_info "\t${bold_cyan}${mounted_partitions}"
+}
+
 # funcao para verificar o SO corrente e chamar seus respectivos comandos
 function verifica_so(){
 local current_so="$(uname -s)"
@@ -151,6 +158,8 @@ for interface in $network_interfaces;do
 	print_info "\t${bold_yellow}${interface}: ${bold_cyan}\t${local_ip}"
 done
 
+print_info "${bold_purple}Storage:"
+storage
+
 print_info "${bold_purple}Versions:"
 development_versions
-

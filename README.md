@@ -20,8 +20,6 @@ Minha própria caixa de ferramentas, com alguns códigos utilitários pra facili
 
 - [Onerpm Build Files](https://github.com/frankjuniorr/Toolbox/tree/master/onerpm_build_files) - Prepara os arquivos para upload no oneRPM.
 
-- [Postman Install](https://github.com/frankjuniorr/Toolbox/tree/master/postman_install) - Instalador do Postman
-
 - [PSGrep](https://github.com/frankjuniorr/Toolbox/tree/master/psgrep) - Script que facilita a busca de um processo rodando no linux.
 
 - [Remove Duplicate Images](https://github.com/frankjuniorr/Toolbox/tree/master/remove_duplicate_images) - Remove arquivos duplicados do Dropbox, removendo eles do diretório `Camera Uploads`
@@ -29,7 +27,6 @@ Minha própria caixa de ferramentas, com alguns códigos utilitários pra facili
 - [Rip Cdrom](https://github.com/frankjuniorr/Toolbox/tree/master/rip_cdrom) - Rip cdrom através de Shell Script =D
 
 - [Spicetify Watchdog](https://github.com/frankjuniorr/Toolbox/tree/master/spicetify_watchdog) - Watchdog pro comando [spicetify](https://github.com/khanhas/spicetify-cli). Ou seja, qualquer alteração que ocorrer no diretório `~/.config/spicetify` ele executa o comando `spicetify update`.
-
 
 - [Update VSCode](https://github.com/frankjuniorr/Toolbox/tree/master/update_vscode) - Atualiza o VsCode via linha de comando.
 

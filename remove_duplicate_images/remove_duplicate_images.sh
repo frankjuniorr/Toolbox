@@ -23,7 +23,7 @@ images="$HOME/Dropbox/Images"
 arquivos_duplicados_lista="$HOME/arquivos_duplicados.txt"
 arquivos_duplicados_pasta="$HOME/arquivos_duplicados_lixo"
 
-# identificando os arquivos duplicados
+echo "[LOG]: Identificando os arquivos duplicados..."
 fdupes -r "$camera_uploads" "$images" > "$arquivos_duplicados_lista"
 
 # se não tiver arquivo duplicado, avise e saia do script
@@ -37,7 +37,7 @@ fi
 # criando a pasta temporária com os arquivos duplicados pra dar uma olhada depois.
 test -d "$arquivos_duplicados_pasta" || mkdir "$arquivos_duplicados_pasta"
 
-echo "movendo os arquivos..."
+echo "[LOG]: Movendo os arquivos..."
 for arquivo in $(grep "Camera Uploads" "$arquivos_duplicados_lista" | sed 's/ /@/g');do
     arquivo=$(echo $arquivo | sed 's/@/ /g')
 
@@ -50,7 +50,7 @@ tamanho=$(du -sh $arquivos_duplicados_pasta | awk '{print $1}')
 
 # imprimindo um sumário
 clear
-echo "Sumário:"
+echo "========= Sumário ========="
 echo "quantidade de arquivos: $quantidade"
 echo "Tamanho: $tamanho"
 

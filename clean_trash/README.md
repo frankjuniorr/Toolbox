@@ -47,6 +47,6 @@ Exemplo de notificação:
 
 ## Use
 ```bash
-python3 clean_trash.py
+python3 app.py
 ```
 

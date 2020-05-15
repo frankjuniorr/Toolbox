@@ -9,3 +9,6 @@ check_music_file_format/*.txt
 feriados/__pycache__
 feriados/token.pickle
 feriados/credentials.json
+
+# Files ignored from "clean_trash" script
+clean_trash/__pycache__

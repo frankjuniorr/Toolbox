@@ -25,7 +25,7 @@ class TrashManager:
             os.rmdir(file)
 
     # ============================================
-    def compare_dates(self, trashed_file_dict, logger):
+    def compare_dates(self, trashed_file_dict):
         """
         Function to compare file deletionTime with currentTime
         """
@@ -49,6 +49,7 @@ class TrashManager:
 
         if difference_in_days >= 30:
             # remove_files(filename)
+            logger = LogManager.instance().getLogger
             logger.info(filename)
             return size
 
@@ -70,9 +71,14 @@ class TrashManager:
             # get total size in bytes
             total_size +=  summary_files[index]
 
+        # KB
+        total_size = round(total_size/1024, DECIMAL)
+        unit = "KB"
+
         # MB
-        total_size = round(total_size/1024/1024, DECIMAL)
-        unit = "MB"
+        if total_size > 1024:
+            total_size = round(total_size/1024, DECIMAL)
+            unit = "MB"
 
         # GB
         if total_size > 1024:

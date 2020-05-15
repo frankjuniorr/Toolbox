@@ -8,8 +8,10 @@ class LogType(Enum):
     LOG = 1
 
 class LogManager:
-    
+
     _instance = None
+    _logger = None
+    _logger_summary = None
 
     # ============================================
     @classmethod
@@ -17,7 +19,7 @@ class LogManager:
         if self._instance is None:
             self._instance = self()
         return self._instance
-    
+
     # ============================================
     def __init__(self):
         _home = os.environ['HOME']
@@ -26,14 +28,16 @@ class LogManager:
     # ============================================
     @property
     def getLogger(self):
-        logger = self.configure_log("log_file", self.get_log_path(LogType.LOG))
-        return logger
+        if self._logger is None:
+            self._logger = self.configure_log("log_file", self.get_log_path(LogType.LOG))
+        return self._logger
 
     # ============================================
     @property
     def getLoggerSummary(self):
-        logger_summary = self.configure_log("log_summary", self.get_log_path(LogType.SUMMARY))
-        return logger_summary
+        if self._logger_summary is None:
+            self._logger_summary = self.configure_log("log_summary", self.get_log_path(LogType.SUMMARY))
+        return self._logger_summary
 
     # ============================================
     def configure_log(self, name, log_file):
@@ -49,7 +53,7 @@ class LogManager:
         logger.addHandler(handler)
 
         return logger
-    
+
     # ============================================
     def get_log_path(self, log_type_enum):
         """

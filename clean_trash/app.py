@@ -1,6 +1,5 @@
 import os
 from trash_manager import TrashManager
-from log_manager import LogManager
 
 if __name__ == '__main__':
 
@@ -25,11 +24,9 @@ if __name__ == '__main__':
             file_trashed = f"{trash_info_path}{file_trashed}"
             trashed_files_list.append(trash_manager.get_file_info(file_trashed))
 
-        logger = LogManager.instance().getLogger
-
         # compare trashedFiles deletionDates with currentdate
         for trashed_file in trashed_files_list:
-            file_size = trash_manager.compare_dates(trashed_file, logger)
+            file_size = trash_manager.compare_dates(trashed_file)
             if not file_size is None:
                 summary_files.append(file_size)
 

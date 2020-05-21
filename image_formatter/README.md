@@ -111,7 +111,7 @@ Exemplo de saída desse script:
 [LOG]: Extracting exif...: 100%|████████████████████████████████████████████████████████████████████████████████████| 595/595 [00:11<00:00, 52.33it/s]
 
 [LOG]: Renaming files...
-[LOG]: Before: /home/usuario/Documents/backup_photos/2016-12-17 21.32.11-1.jpg
+[LOG]: Before: /home/usuario/Documents/backup_photos/f28e6152-d7d4-4e54-ae94-7ef1e902260d.jpg
 [LOG]: After: /home/usuario/Documents/backup_photos/2016-12-17_21:32:11_backup_photos.jpg
 [LOG]: =======================
 [LOG]: Before: /home/usuario/Documents/backup_photos/2017-01-29 19.25.53.jpg
@@ -161,7 +161,7 @@ Depois do script:
 /minhas-imagens
   |--- churrasco_2012
         |--- 2019-11-23_22:57:01_churrasco_2012.jpg
-        |--- 2019-11-23_14:32:010_churrasco_2012.jpg
+        |--- 2019-11-23_14:32:01_churrasco_2012.jpg
         |--- 2019-11-23_09:10:25_churrasco_2012.jpg
         |--- 2019-11-23_15:42:10_churrasco_2012.jpg
         |--- 2019-11-23_13:23:05_churrasco_2012.jpg

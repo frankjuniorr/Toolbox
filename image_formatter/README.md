@@ -4,7 +4,7 @@ Image File Formatter
 ## Descrição
 Renomeia de forma padronizada todos os arquivos de imagem/vídeo de acordo com algumas regras.
 
-O script se baseia nas tags [EXIF](https://en.wikipedia.org/wiki/Exif) de cada arquivo, extraindo o `CreateDate` deles, e aplicando no nome do arquivo
+O script se baseia nas tags [EXIF](https://en.wikipedia.org/wiki/Exif) de cada arquivo, extraindo o `CreateDate` deles, e aplicando no nome do arquivo. Com isso, o objetivo é ter todas as suas fotos/vídeos com a data que ela foi tirada no próprio nome do arquivo =D
 
 Basicamente, as regras são:
 - Pegar o `CreateDate` do EXIF e aplicar no nome do arquivo, nesse formato `YYYY-mm-dd_HH:MM:SS`

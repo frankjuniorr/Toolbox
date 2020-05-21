@@ -51,9 +51,12 @@ File 2.jpg
 ```
 
 ## Ferramentas:
-Sabendo-se que muitos arquivos serão logados, o script contém algumas ferramentas para ajudar em alguns casos pontuais e serem executados separadamente, e eles estão na pasta `tools`, que contém essas ferramentas:
+Sabendo-se que muitos arquivos serão logados, o script contém algumas ferramentas para ajudar em alguns casos pontuais e devem ser executados separadamente. Eles estão na pasta `tools` do projeto, e eu dividi em 2 partes:
 
-### - **`Analyze`**
+### Pré-Rename
+Ferramentas de análise que devem ser executadas antes de renomear os arquivos de fato.
+
+#### 1. **`Analyze`**
 
 Esse script, eu recomendo sempre rodar ele primeiro. Ele faz uma primeira análise do diretório passado por parâmetro mostrando algumas sugestões e sugerindo um backup. 
 
@@ -77,6 +80,11 @@ Para usar essa ferramenta, é só rodar:
 ```
 python3 tools/analyze.py <diretorio_das_fotos>
 ```
+
+### Pós-Rename
+Ferramentas auxiliares que foram pensadas para serem executadas depois de renomear os arquivos, para ajudar com os arquivos logados por exemplo:
+
+- TODO
 
 ---
 

@@ -50,9 +50,8 @@ File 2.jpg
 ## Ferramentas:
 Sabendo-se que muitos arquivos serão logados, o script contém algumas ferramentas para ajudar em alguns casos pontuais e serem executados separadamente, e eles estão na pasta `tools`, que contém essas ferramentas:
 
-> Tools:
+### - **`Analyze`**
 
-- **`Analyze`**
 Esse script, eu recomendo sempre rodar ele primeiro. Ele faz uma primeira análise do diretório passado por parâmetro mostrando algumas sugestões e sugerindo um backup. 
 
 Exemplo de saída desse script:
@@ -82,7 +81,7 @@ python3 tools/analyze.py <diretorio_das_fotos>
 
 1. É recomendado sempre rodas as ferramentas a parte sempre que necessário para fazer uma análise mais cautelosa sobre os arquivos.
 
-2. Todo e qualquer software que renomeia arquivos é perigoso, qualquer bug inesperado um arquivo desse pode ser removido sem passar pela lixeira, logo, é sempre bom faz um backup antes do diretório de fotos.
+2. Todo e qualquer software que renomeia arquivos é perigoso, qualquer bug inesperado um arquivo desse pode ser removido sem passar pela lixeira, logo, é sempre bom fazer um backup antes.
 
 ---
 

@@ -2,13 +2,9 @@
 *~
 *.swp
 
-# Files ignored from "check_music_file_format" script
-check_music_file_format/*.txt
-
 # Files ignored from "feriados" script
-feriados/__pycache__
 feriados/token.pickle
 feriados/credentials.json
 
-# Files ignored from "clean_trash" script
-clean_trash/__pycache__
+# Files ignored from python scripts
+*/__pycache__

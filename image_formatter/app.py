@@ -14,18 +14,31 @@ if __name__ == '__main__':
         print("type a valid path as argument")
         sys.exit()
 
+    # checka se o path existe
     if not os.path.isdir(path):
         print(f"Path not found: {path}")
         sys.exit()
 
+    # instacia o objeto
     imageFormatter = ImageFormatter(path)
-
     imageFormatter.enableDebugMode(False)
 
-    imageFormatter.standardizeFileFormats()
-    imageFormatter.renameAllFolders()
-    imageFormatter.renameAllFiles()
+    # Verifica se há arquivos duplicados (verificação por byte).
+    # Não prossegue enquanto houver arquivo duplicado
+    # para serem resolvidos manualmente
+    print("Verificando arquivos duplicados (por byte)...")
+    existFileDuplicated = imageFormatter.checkDuplicateFilesByBytes()
 
-    LogManager.instance().log_clean()
+    if existFileDuplicated == "":
+        imageFormatter.standardizeFileFormats()
+        imageFormatter.renameAllFolders()
+        imageFormatter.renameAllFiles()
+        LogManager.instance().log_clean()
+    else:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print()
+        print("----------- Arquivos Duplicados (por Byte) -----------")
+        print()
+        print(existFileDuplicated)
 
 

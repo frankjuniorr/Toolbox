@@ -1,9 +1,4 @@
-import exiftool
-import os
-import re
-import sys
-import glob
-import unidecode
+import exiftool, os, re, sys, glob, unidecode, subprocess
 
 from tqdm import tqdm
 from log_manager import LogManager
@@ -364,6 +359,15 @@ class ImageFormatter:
         print(f"Files in Log : {self.total_files_in_log}")
         print(f"Files in Log [Duplicated]: {self.total_duplicated_files}")
         print()
+
+    # ============================================
+    def checkDuplicateFilesByBytes(self):
+        """
+        Check if exist duplicate files (by byte)
+        """
+        command = ['fdupes', '-r', self.path]
+        result = subprocess.run(command, stdout=subprocess.PIPE).stdout.decode('utf-8')
+        return result
 
     # ============================================
     def enableDebugMode(self, mode):

@@ -74,7 +74,7 @@ class Analyze:
         home = os.environ['HOME']
         backup_destiny = f"{home}/Documents/backup_photos"
 
-        if os.path.isdir(path):
+        if os.path.isdir(backup_destiny):
             print(f"backup folder: {backup_destiny}")
             print("already exist")
             sys.exit()

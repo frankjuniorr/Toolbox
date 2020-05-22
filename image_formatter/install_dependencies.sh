@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo apt install -y exiftool
+sudo apt install -y exiftool fdupes
 
 git clone git://github.com/smarnach/pyexiftool.git /tmp/pyexiftool
 sudo python3 /tmp/pyexiftool/setup.py install

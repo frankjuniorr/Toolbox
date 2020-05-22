@@ -8,7 +8,10 @@ O script se baseia nas tags [EXIF](https://en.wikipedia.org/wiki/Exif) de cada a
 
 Basicamente, as regras são:
 - Pegar o `CreateDate` do EXIF e aplicar no nome do arquivo, nesse formato `YYYY-mm-dd_HH:MM:SS`
-- Remove todos os caracteres especiais do nome do arquivo, e passa tudo pra letra minúscula 
+- Concatena isso com o nome da pasta onde o arquivo está localizado.
+- Remove todos os caracteres especiais do nome do arquivo, e passa tudo pra letra minúscula.
+
+O objetivo é deixar o arquivo assim, ex: `2018-07-23_15:50:10_aniversario_de_fulano.jpg`
 
 ## Log
 Obviamente que pode acontecer de algum arquivo não ter a tag `CreateDate` no EXIF ou ter e o valor ser vazio. Nesse caso, esses aquivos **NÃO** serão renomeados e seus endereço de path serão logados em arquivos de log.
@@ -48,9 +51,12 @@ File 2.jpg
 ```
 
 ## Ferramentas:
-Sabendo-se que muitos arquivos serão logados, o script contém algumas ferramentas para ajudar em alguns casos pontuais e serem executados separadamente, e eles estão na pasta `tools`, que contém essas ferramentas:
+Sabendo-se que muitos arquivos serão logados, o script contém algumas ferramentas para ajudar em alguns casos pontuais e devem ser executados separadamente. Eles estão na pasta `tools` do projeto, e eu dividi em 2 partes:
 
-### - **`Analyze`**
+### Pré-Rename
+Ferramentas de análise que devem ser executadas antes de renomear os arquivos de fato.
+
+#### 1. **`Analyze`**
 
 Esse script, eu recomendo sempre rodar ele primeiro. Ele faz uma primeira análise do diretório passado por parâmetro mostrando algumas sugestões e sugerindo um backup. 
 
@@ -74,6 +80,11 @@ Para usar essa ferramenta, é só rodar:
 ```
 python3 tools/analyze.py <diretorio_das_fotos>
 ```
+
+### Pós-Rename
+Ferramentas auxiliares que foram pensadas para serem executadas depois de renomear os arquivos, para ajudar com os arquivos logados por exemplo:
+
+- TODO
 
 ---
 

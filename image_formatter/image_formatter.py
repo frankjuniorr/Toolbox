@@ -18,7 +18,6 @@ class ImageFormatter:
         self.log_mode =  True
 
         # object logs instances
-        self.logger = LogManager.instance().getLogger
         self.logger_duplicate = LogManager.instance().getLoggerDuplicateFile
 
         # list of files supported:
@@ -35,8 +34,6 @@ class ImageFormatter:
         self.total_files = 0
         # files that already renamed and not to do with its
         self.total_files_ok = 0
-        # total files that are in the log file, so, files without date by exif
-        self.total_files_in_log = 0
 
     # ============================================
     def _find_files(self, path):
@@ -139,7 +136,15 @@ class ImageFormatter:
         parent_folder = os.path.basename(dirname).strip()
 
         # format date string
-        date_year, date_hour = file_dict["Createdate"].split("-")
+        date = file_dict["Createdate"].split("-")
+
+        # se for um CreateDate, o array vem assim: "['2012:04:07', '02:02:10']"
+        # mas se for um Modificationdate, vem com timezone: "['2012:04:08', '21:41:17', '03:00']".
+        # Então esse slice é pra remover o timezone, caso tenha
+        date = date[0:2]
+
+        date_year, date_hour = date
+        
         date_year = date_year.replace(":", "-")
         create_date = f"{date_year}_{date_hour}"
 
@@ -208,7 +213,6 @@ class ImageFormatter:
 
         for metadata in self._extract_metatags():
             file_date = ""
-            file_logged = False
             file = {"filename": None, "Createdate":None}
 
             # extract "SourceFile" from exif
@@ -227,21 +231,19 @@ class ImageFormatter:
             try:
                 file_date = metadata[exif_tag]
             except KeyError:
-                # if "EXIF:CreateDate" don't have been found
-                # log this file
-                self.logger.info(source_file)
-                file_logged = True
-                self.total_files_in_log += 1
+                # se o arquivo não tiver a tag "EXIF:CreateDate", vai cair nesse catch
+                #  então, procure pela tag 'File:FileModifyDate'
+                file_date = metadata["File:FileModifyDate"]
 
-            if file_date != '0000:00:00 00:00:00' and file_date != '':
-                file["filename"] = source_file
-                file["Createdate"] = file_date.replace(" ", "-")
-                files_list.append(file)
-            else:
-                # if exist "EXIF:CreateDate", but it is empty, log this file
-                if file_logged == False:
-                    self.logger.info(source_file)
-                    self.total_files_in_log += 1
+            # reforce aqui também, porque pode ser que ele tenha a tag
+            # não caia no catch, mas venha nese formato: '0000:00:00 00:00:00'
+            # (principalmente em arquivos de vídeo)
+            if file_date == '0000:00:00 00:00:00':
+                file_date = metadata["File:FileModifyDate"]
+
+            file["filename"] = source_file
+            file["Createdate"] = file_date.replace(" ", "-")
+            files_list.append(file)
 
         return files_list
 
@@ -356,7 +358,6 @@ class ImageFormatter:
         print(f"Files already ok: {self.total_files_ok}")
         print(f"Folders Renamed: {self.total_folders}")
         print(f"Files Renamed: {self.total_files_renamed}")
-        print(f"Files in Log : {self.total_files_in_log}")
         print(f"Files in Log [Duplicated]: {self.total_duplicated_files}")
         print()
 

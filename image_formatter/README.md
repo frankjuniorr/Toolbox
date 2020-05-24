@@ -4,42 +4,32 @@ Image File Formatter
 ## Descrição
 Renomeia de forma padronizada todos os arquivos de imagem/vídeo de acordo com algumas regras.
 
-O script se baseia nas tags [EXIF](https://en.wikipedia.org/wiki/Exif) de cada arquivo, extraindo o `CreateDate` deles, e aplicando no nome do arquivo. Com isso, o objetivo é ter todas as suas fotos/vídeos com a data que ela foi tirada no próprio nome do arquivo =D
+O script se baseia nas tags [EXIF](https://en.wikipedia.org/wiki/Exif) de cada arquivo, extraindo a data de criação deles. Caso o arquivo não tenha data de criação pra ser extraída, será usado a data de modificação, e aplicando no nome do arquivo. Com isso, o objetivo é ter todas as suas fotos/vídeos com a data que ela foi tirada no próprio nome do arquivo =D
 
 Basicamente, as regras são:
 - Pegar o `CreateDate` do EXIF e aplicar no nome do arquivo, nesse formato `YYYY-mm-dd_HH:MM:SS`
+- Se o `CreateDate` não conseguir ser extraído, será usado o `ModificationDate`
 - Concatena isso com o nome da pasta onde o arquivo está localizado.
 - Remove todos os caracteres especiais do nome do arquivo, e passa tudo pra letra minúscula.
 
 O objetivo é deixar o arquivo assim, ex: `2018-07-23_15:50:10_aniversario_de_fulano.jpg`
 
 ## Log
-Obviamente que pode acontecer de algum arquivo não ter a tag `CreateDate` no EXIF ou ter e o valor ser vazio. Nesse caso, esses aquivos **NÃO** serão renomeados e seus endereço de path serão logados em arquivos de log.
 
-Além dos arquivos que o script não conseguiu extrair a data de criação deles pelo exif, há também a possibilidades de arquivos com exatamente o mesmo timedate (mesmo "ano-mes-dia-hora-minuto-segundo"). Para esses casos, os arquivos **NÃO** serão renomeados (apenas 1 deles, o arquivo repetido não) e terão seus endereços logados em outro arquivo de log sugerindo que são repetidos.
+Existe a possibilidade de alguns arquivos terem exatamente o mesmo timedate (mesmo "ano-mes-dia-hora-minuto-segundo"). Para esses casos, os arquivos **NÃO** serão renomeados (apenas 1 deles, o arquivo repetido não) e terão seus endereços logados em outro arquivo de log sugerindo que são repetidos.
 
 E todos os log serão salvos nessa pasta: `$HOME/log/image_formatter`
 
-logo, os arquivos de log são 2:
+O arquivo de log é:
 | Arquivo | Descrição |
 | ------ | ------ |
-| `%Y-%m-%d_%H:%M:%S.log` | log contendo os arquivos que não foi possível extrair a data do EXIF |
 | `%Y-%m-%d_%H:%M:%S_duplicated_files.log` | log contendo os arquivos "duplicados" (mesma data)  |
 
 
 **Exemplo:**
-- `2020-05-07_15:26:01.log`
 - `2020-05-07_15:26:01_duplicated_files.log`
 
 **Exemplo de Log:**
-- `2020-05-07_15:26:01.log`:
-```
-IMG-2020-WA0001.png
-Foto 2.jpg
-Foto 5.png
-```
-
----
 
 - `2020-05-07_15:26:01_duplicated_files.log`:
 ```
@@ -51,12 +41,9 @@ File 2.jpg
 ```
 
 ## Ferramentas:
-Sabendo-se que muitos arquivos serão logados, o script contém algumas ferramentas para ajudar em alguns casos pontuais e devem ser executados separadamente. Eles estão na pasta `tools` do projeto, e eu dividi em 2 partes:
+o script contém 1 ferramenta que deve ser executada separadamente, e fica localizado no diretório `tools`. A ferramenta é a `analyze`
 
-### Pré-Rename
-Ferramentas de análise que devem ser executadas antes de renomear os arquivos de fato.
-
-#### 1. **`Analyze`**
+### **`Analyze`**
 
 Esse script, eu recomendo sempre rodar ele primeiro. Ele faz uma primeira análise do diretório passado por parâmetro mostrando algumas sugestões e sugerindo um backup. 
 
@@ -81,16 +68,9 @@ Para usar essa ferramenta, é só rodar:
 python3 tools/analyze.py <diretorio_das_fotos>
 ```
 
-### Pós-Rename
-Ferramentas auxiliares que foram pensadas para serem executadas depois de renomear os arquivos, para ajudar com os arquivos logados por exemplo:
-
-- TODO
-
----
-
 ## Recomendações:
 
-1. É recomendado sempre rodas as ferramentas a parte sempre que necessário para fazer uma análise mais cautelosa sobre os arquivos.
+1. É recomendado sempre rodar a ferramenta `analyze` à parte sempre que necessário para fazer uma análise mais cautelosa sobre os arquivos.
 
 2. Todo e qualquer software que renomeia arquivos é perigoso, qualquer bug inesperado um arquivo desse pode ser removido sem passar pela lixeira, logo, é sempre bom fazer um backup antes.
 

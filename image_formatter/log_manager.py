@@ -3,14 +3,9 @@ import os
 import logging
 from enum import Enum
 
-class LogType(Enum):
-    DUPLICATE = 0
-    LOG = 1
-
 class LogManager:
 
     _instance = None
-    _logger = None
     _logger_duplicate = None
 
     # ============================================
@@ -27,16 +22,9 @@ class LogManager:
 
     # ============================================
     @property
-    def getLogger(self):
-        if self._logger is None:
-            self._logger = self.configure_log("log_file", self.get_log_path(LogType.LOG))
-        return self._logger
-
-    # ============================================
-    @property
     def getLoggerDuplicateFile(self):
         if self._logger_duplicate is None:
-            self._logger_duplicate = self.configure_log("log_file_duplicate", self.get_log_path(LogType.DUPLICATE))
+            self._logger_duplicate = self.configure_log("log_file_duplicate", self.get_log_path())
         return self._logger_duplicate
 
     # ============================================
@@ -55,7 +43,7 @@ class LogManager:
         return logger
 
     # ============================================
-    def get_log_path(self, log_type_enum):
+    def get_log_path(self):
         """
         Function that return Log file path
         """
@@ -65,10 +53,7 @@ class LogManager:
         if not os.path.exists(self.log_path):
             os.makedirs(self.log_path)
 
-        if log_type_enum == LogType.LOG:
-            log_file = f"{self.log_path}/{log_date_time}.log"
-        elif log_type_enum == LogType.DUPLICATE:
-            log_file = f"{self.log_path}/{log_date_time}_duplicated_files.log"
+        log_file = f"{self.log_path}/{log_date_time}_duplicated_files.log"
 
         return log_file
 
@@ -79,12 +64,11 @@ class LogManager:
         """
         EMPTY = 0
 
-        for log_type in LogType:
-            log_file = self.get_log_path(log_type)
+        log_file = self.get_log_path()
 
-            if os.path.isfile(log_file) and \
-                os.path.getsize(log_file) == 0:
-                    os.remove(log_file)
+        if os.path.isfile(log_file) and \
+            os.path.getsize(log_file) == 0:
+                os.remove(log_file)
 
         # if all log was cleaned, delete log folder
         log_folder = os.listdir(self.log_path)

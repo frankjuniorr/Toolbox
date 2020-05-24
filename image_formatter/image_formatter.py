@@ -123,7 +123,7 @@ class ImageFormatter:
         return metadata_list
 
     # ============================================
-    def _generateNewFileName(self, file_dict):
+    def generateNewFileName(self, file_dict):
         """
         Function with rules to rename a filename
 
@@ -320,7 +320,7 @@ class ImageFormatter:
                 sys.exit()
 
             # get the new name
-            new_file_path = self._generateNewFileName(item)
+            new_file_path = self.generateNewFileName(item)
 
             if original_file_path != new_file_path:
                 if self.debug_mode == False:

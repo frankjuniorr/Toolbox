@@ -97,7 +97,12 @@ class LogFilter:
             time = datetime[3]
             time = os.path.splitext(time)[0].replace("-", ":")
             date = f"{date}_{time}"
-            return self.generateNewFileName(date, file_path)
+
+            # fazendo uma validação pra saber se os caractres extraídos da string
+            # são números.
+            is_valid = date.replace(":", "").replace("_", "").replace("-", "")
+            if is_valid.isdigit():
+                return self.generateNewFileName(date, file_path)
 
     # ============================================
     def fixScreenshotMobileImage(self, file_path):
@@ -148,6 +153,48 @@ class LogFilter:
                 date = f"{year}-{month}-{day}_{hour}:{minute}:{seconds}"
 
             return self.generateNewFileName(date, file_path)
+
+    # ============================================
+    def fixImage(self, file_path):
+        """
+        Function to identify image with pattern: "^IMG_"
+        format i.e:
+            - IMG_20190725_155420_149.jpg
+            - IMG_20190126_144103999_HDR.jpg
+
+        Params:
+        file_path --> file to be analyzed
+
+        Return:
+        new_path --> new name to this pattern taht will be renamed. None in otherwise
+        """
+        basename = os.path.basename(file_path)
+
+        image_pattern = '^IMG_'
+        images = re.search(image_pattern, basename)
+
+        if images != None:
+            datetime = basename.split("_")
+            date = datetime[1]
+
+            year = date[0:2]
+            month = date[2:4]
+            day = date[4:6]
+
+            time = datetime[2].split(".")[0]
+
+            # se o 'time' tiver nesse formato: '155420'
+            hour = time[0:2]
+            minute = time[2:4]
+            seconds = time[4:6]
+
+            date = f"{year}-{month}-{day}_{hour}:{minute}:{seconds}"
+
+            # fazendo uma validação pra saber se os caractres extraídos da string
+            # são números.
+            is_valid = date.replace(":", "").replace("_", "").replace("-", "")
+            if is_valid.isdigit():
+                return self.generateNewFileName(date, file_path)
 
     # ============================================
     def renameFile(self, path, new_path):
@@ -208,7 +255,10 @@ class LogFilter:
 
                 new_file = self.fixScreenshotComputerImage(line)
                 if new_file != None:
-                    print(new_file)
+                    self.renameFile(line, new_file)
+
+                new_file = self.fixImage(line)
+                if new_file != None:
                     self.renameFile(line, new_file)
 
         file.close()

@@ -73,13 +73,15 @@ class ImageFormatter:
             basename =  os.path.basename(file_list[file_index])
             dirname = os.path.dirname(file_list[file_index])
             parent_folder = os.path.basename(dirname)
+            filename_without_extension = os.path.splitext(basename)[0]
 
-            # check if file startWith this pattern, i.e.: "2020-04-01"
-            already_renamed = re.search('^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]', basename)
+            # check if file startWith this pattern, i.e.: "2020-04-01_10:01:05"
+            regex = "^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]_[0-9][0-9]:[0-9][0-9]:[0-9][0-9]"
+            already_renamed = re.search(regex, basename)
 
             # if file match the pattern and contain the "parent_folder" in the name
             # the file is ok
-            if already_renamed != None and parent_folder in basename:
+            if already_renamed != None and filename_without_extension.endswith(parent_folder):
                 item = file_list[file_index]
                 files_ok.append(item)
                 self.total_files_ok += 1

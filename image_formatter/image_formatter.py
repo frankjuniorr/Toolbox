@@ -226,7 +226,7 @@ class ImageFormatter:
             # if file is a image, get a kind of exif tag,
             # if a video file, get other kind of exif tag
             if file_extension in self.images_list:
-                exif_tag = "EXIF:CreateDate"
+                exif_tag = "EXIF:DateTimeOriginal"
             elif file_extension in self.video_list:
                 exif_tag = "QuickTime:MediaCreateDate"
 

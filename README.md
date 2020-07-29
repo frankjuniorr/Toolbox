@@ -22,8 +22,6 @@ Minha própria caixa de ferramentas, com alguns códigos utilitários pra facili
 
 - [PSGrep](https://github.com/frankjuniorr/Toolbox/tree/master/psgrep) - Script que facilita a busca de um processo rodando no linux.
 
-- [Remove Duplicate Images](https://github.com/frankjuniorr/Toolbox/tree/master/remove_duplicate_images) - Remove arquivos duplicados do Dropbox, removendo eles do diretório `Camera Uploads`
-
 - [Rip Cdrom](https://github.com/frankjuniorr/Toolbox/tree/master/rip_cdrom) - Rip cdrom através de Shell Script =D
 
 - [Spicetify Watchdog](https://github.com/frankjuniorr/Toolbox/tree/master/spicetify_watchdog) - Watchdog pro comando [spicetify](https://github.com/khanhas/spicetify-cli). Ou seja, qualquer alteração que ocorrer no diretório `~/.config/spicetify` ele executa o comando `spicetify update`.

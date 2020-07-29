@@ -41,32 +41,8 @@ File 2.jpg
 ```
 
 ## Ferramentas:
-o script contém 1 ferramenta que deve ser executada separadamente, e fica localizado no diretório `tools`. A ferramenta é a `analyze`
-
-### **`Analyze`**
-
-Esse script, eu recomendo sempre rodar ele primeiro. Ele faz uma primeira análise do diretório passado por parâmetro mostrando algumas sugestões e sugerindo um backup. 
-
-Exemplo de saída desse script:
-
-```
-Analyze folder:
-/home/usuario/Images
-===================================
-Total files in this folder: 595
-All file formats in folder: jpeg PNG png jpg mp4
-Folder Size: 3.13 GB
-===================================
-
-Make the Backup?:
-```
-
-Se responder `yes` a essa entrada, ele criará uma cópia/backup desse path para `$HOME/Documents/backup_photos`.
-
-Para usar essa ferramenta, é só rodar:
-```
-python3 tools/analyze.py <diretorio_das_fotos>
-```
+o script contém +4 ferramentas auxiliares que devem ser executadas separadamente.
+A descrição detalhada de cada uma pode ser acessa [aqui](https://github.com/frankjuniorr/Toolbox/tree/master/image_formatter/tools).
 
 ## Recomendações:
 

@@ -91,3 +91,16 @@ originalTimeDate = None
 createDate = None
 modifyDate = 2020:05:25 09:43:18-03:00
 ```
+
+### **4. `set_datetime_tags`**
+
+Ferramenta auxiliar para setar (corrigir) as datas (EXIF) de um arquivo de imagem (foto/vídeo). Aceita um arquivo único ou um diretório. Caso seja um diretório, ele irá setar o memso timedate em todos os arquivos de imagem/vídeo, incrementando os segundos pra diferenciar
+
+Exemplo de saída desse script:
+
+```
+<FILE1>
+    1 image files updated
+<FILE2>
+    1 image files updated
+```

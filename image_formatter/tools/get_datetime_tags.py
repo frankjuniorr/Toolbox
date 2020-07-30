@@ -19,7 +19,6 @@
 ################################################################################
 
 import exiftool
-import sys
 from pathlib import Path
 import click
 
@@ -35,7 +34,7 @@ def __get_tags_from_file(file):
         datetime_modify_date_tag = "File:FileModifyDate"
         datetime_media_create_date_tag = "EXIF:CreateDate"
     else:
-        print("file format not supported")
+        print(f"{file} --> file format not supported")
 
     # extraindo as tags
     file = str(file)

@@ -1,7 +1,7 @@
 Git Rename tags Bulk
 ===========
 
-## Description
+## Descrição
 Comando para renomear tags do git de forma dinâmica (quando necessário, claro).
 
 ### Dica
@@ -13,7 +13,7 @@ Coloque esse scrip pra ser chamado em um alias, só faz sentido se for assim
   3. Rode o script novamente pra ele renomear
   4. delete o arquivo .txt gerado
 
-## Use
+## Uso
 ```bash
 ./git_rename_tags_bulk.sh
 ```

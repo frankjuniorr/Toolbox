@@ -64,13 +64,13 @@ function main(){
     git tag --list > "$git_tag_file"
     sed -i 's/$/=<DIGITE_AQUI_A_TAG_NOVA>/g' "$git_tag_file"
     exit 0
-    
+
   else
 
     # validações
     if grep -q "<DIGITE_AQUI_A_TAG_NOVA>" "$git_tag_file";then
-        echo "digite o nome das novas tags no arquivo de texto"
-        exit 1
+      echo "digite o nome das novas tags no arquivo de texto"
+      exit 1
     fi
 
     # se o arquivo já existir, rode o loop

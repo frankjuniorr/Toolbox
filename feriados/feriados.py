@@ -82,11 +82,11 @@ def feriados_estaticos(service, ano):
 # Função Main
 # ============================================
 def main():
+    # Autenticação e obtenção do ID referente a um calendário chamado "feriado"
+    service = google_controller.google_authenticate()
+    google_controller.GetFeriadosCalendarId(service)
 
     print(" ========= Adicionando feriados =========")
-
-    # ================ Init ================
-    service = google_controller.google_authenticate()
     ano = datetime.datetime.now().year
 
     # se eu rodar esse script no mês de dezembro, ele incrementa o 'ano'

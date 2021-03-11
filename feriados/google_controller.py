@@ -1,11 +1,15 @@
 from __future__ import print_function
 
 import os.path
+import sys
 import pickle
 
 from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
+
+# Variável que guarda o id do calendário, obtida através de uma request pro Google.
+calendar_id = None
 
 # arquivo de credencial do Google, que pode ser obtido aqui: https://developers.google.com/calendar/quickstart/python
 GOOGLE_CREDENTIAL_FILE = 'credentials.json'
@@ -15,7 +19,8 @@ GOOGLE_CREDENTIAL_FILE = 'credentials.json'
 GOOGLE_TOKEN_FILE = 'token.pickle'
 
 # If modifying these scopes, delete the file token.pickle.
-SCOPES = ['https://www.googleapis.com/auth/calendar']
+SCOPES = ['https://www.googleapis.com/auth/calendar.events',
+          'https://www.googleapis.com/auth/calendar.readonly']
 
 service = None
 
@@ -46,23 +51,43 @@ def google_authenticate():
   return service
 
 # ============================================
+# Função que retorna o id de um calendário chamado "feriados".
+# Ela lista tudo, mas só retorna o id de um calendar com esse nome
+# ============================================
+def GetFeriadosCalendarId(service):
+    global calendar_id
+    calendar_list = service.calendarList().list().execute()
+    for calendar_list_entry in calendar_list['items']:
+        summary = calendar_list_entry['summary']
+        calendar_id = calendar_list_entry['id']
+
+        if summary.lower() == "feriado":
+            return calendar_id
+        else:
+            print("Não existe nenhum calendário no Google Calendar chamado 'feriado' ")
+            print("Crie um calendário lá primeiro, com esse nome")
+            sys.exit()
+
+# ============================================
 # Função que cria um evento no Google Calendar
 # ============================================
 def setGoogleCalendar(objeto, service):
-  event = {
-      'summary': f"[FERIADO] {objeto['summary']}",
-      'description': objeto["description"],
-      'start': {'date': objeto["startDate"]},
-      'end': {'date': objeto["endDate"]}
-  }
+    global calendar_id
+    event = {
+        'summary': f"[FERIADO] {objeto['summary']}",
+        'description': objeto["description"],
+        'start': {'date': objeto["startDate"]},
+        'end': {'date': objeto["endDate"]}
+    }
 
-  event = service.events().insert(calendarId='primary', body=event).execute()
-  event_link = event.get('htmlLink')
-  feriado_summary = objeto["summary"]
-  feriado_start_date = objeto["startDate"]
+    event = service.events().insert(calendarId=calendar_id, body=event).execute()
 
-  print(f"[LOG]: {feriado_summary} ({feriado_start_date})")
-  print(f"link: {event_link}")
-  print("--------------------------------------------------")
+    event_link = event.get('htmlLink')
+    feriado_summary = objeto["summary"]
+    feriado_start_date = objeto["startDate"]
 
-  return
+    print(f"[LOG]: {feriado_summary} ({feriado_start_date})")
+    print(f"link: {event_link}")
+    print("--------------------------------------------------")
+
+    return

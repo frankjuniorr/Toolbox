@@ -13,7 +13,7 @@ OBS2: O script também adiciona o carnaval \o/
 
 2. instale as depdencias de código
 ```bash
-pip3 install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
+pip3 install -r requirements.txt
 ```
 
 ## Use
